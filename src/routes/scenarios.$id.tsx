@@ -1,4 +1,5 @@
 console.log("BriefingPage mounted");
+console.log("fetchScenario id:", id);
 
 //시나리오 상세 페이지
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";

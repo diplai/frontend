@@ -9,12 +9,15 @@ const API_BASE = "https://diplai.onrender.com";
 export async function fetchScenario(id: string) {
   const res = await fetch(`${API_BASE}/scenarios/${id}`);
 
+  console.log("status:", res.status);
+
   if (!res.ok) {
     throw new Error("Failed to fetch scenario");
   }
 
   return res.json();
 }
+
 
 /*
 // 채팅
