@@ -22,6 +22,13 @@ export const Route = createFileRoute("/scenarios/$id")({
 });
 
 function BriefingPage() {
+  console.log("PAGE RENDER");
+
+  return <div>test</div>;
+}
+
+/*
+function BriefingPage() {
   const { id } = useParams({ from: "/scenarios/$id" });
   const { data: scenario, isLoading } = useQuery({
     queryKey: ["scenario", id],
