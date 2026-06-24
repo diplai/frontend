@@ -1,8 +1,3 @@
-console.log("BriefingPage mounted");
-console.log("fetchScenario id:", id);
-console.log("id:", id);
-
-//시나리오 상세 페이지
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, ClipboardList, Users, Clock, Scale, AlertTriangle } from "lucide-react";
@@ -23,28 +18,12 @@ export const Route = createFileRoute("/scenarios/$id")({
   component: BriefingPage,
 });
 
-/*
-function BriefingPage() {
-  console.log("PAGE RENDER");
-
-  return <div>test</div>;
-}
-*/
-
 function BriefingPage() {
   const { id } = useParams({ from: "/scenarios/$id" });
-  /*
   const { data: scenario, isLoading } = useQuery({
     queryKey: ["scenario", id],
     queryFn: () => fetchScenario(id),
   });
-  */
-  const { data: scenario, isLoading } = useQuery({
-    queryKey: ["scenario", id],
-    queryFn: () => fetchScenario(id),
-    enabled: !!id,
-  });
-
 
   if (isLoading) {
     return <div className="mx-auto max-w-7xl p-10 text-sm text-muted-foreground">불러오는 중…</div>;
@@ -59,8 +38,6 @@ function BriefingPage() {
       </div>
     );
   }
-
-  //console.log("scenario:", scenario);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
