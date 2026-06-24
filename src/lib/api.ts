@@ -15,6 +15,7 @@ export async function fetchScenario(id: string) {
 }
 */
 
+//시나리오 목록
 import type { Scenario } from "@/types";
 
 export async function fetchScenario(id: string) {
@@ -27,6 +28,7 @@ export async function fetchScenario(id: string) {
   return res.json();
 }
 
+//시나리오
 import { scenarios } from "@/data/scenarios";
 
 const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
@@ -36,7 +38,6 @@ export async function fetchScenarios(): Promise<Scenario[]> {
   return scenarios;
 }
 
-/*
 // 채팅
 export async function sendNegotiationMessage(
   scenarioId: string,
@@ -62,12 +63,13 @@ export async function sendNegotiationMessage(
   return res.json();
 }
 
-
+/*
 //시나리오 목록
 export async function fetchScenario(id: string): Promise<Scenario | undefined> {
   await delay();
   return scenarios.find((s) => s.id === id);
 }
+*/
 
 // 협상 메시지 전송 (mock)
 export async function sendNegotiationMessage(
@@ -87,4 +89,4 @@ export async function fetchReport(id: string) {
   await delay();
   return scenarios.find((s) => s.id === id)?.report;
 }
-*/
+
