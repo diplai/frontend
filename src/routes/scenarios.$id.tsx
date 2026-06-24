@@ -12,6 +12,8 @@ import { IssueCard } from "@/components/IssueCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
+console.log("BriefingPage mounted");
+
 export const Route = createFileRoute("/scenarios/$id")({
   head: () => ({
     meta: [{ title: "시나리오 브리핑 · DIPLAI" }],
