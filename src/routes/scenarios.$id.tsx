@@ -1,3 +1,5 @@
+console.log("BriefingPage mounted");
+
 //시나리오 상세 페이지
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -12,8 +14,6 @@ import { IssueCard } from "@/components/IssueCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-console.log("BriefingPage mounted");
-
 export const Route = createFileRoute("/scenarios/$id")({
   head: () => ({
     meta: [{ title: "시나리오 브리핑 · DIPLAI" }],
@@ -21,13 +21,14 @@ export const Route = createFileRoute("/scenarios/$id")({
   component: BriefingPage,
 });
 
+/*
 function BriefingPage() {
   console.log("PAGE RENDER");
 
   return <div>test</div>;
 }
+*/
 
-/*
 function BriefingPage() {
   const { id } = useParams({ from: "/scenarios/$id" });
   const { data: scenario, isLoading } = useQuery({
@@ -49,7 +50,7 @@ function BriefingPage() {
     );
   }
 
-  console.log("scenario:", scenario); // 👈 여기
+  //console.log("scenario:", scenario);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
@@ -116,4 +117,3 @@ function BriefingPage() {
     </div>
   );
 }
-*/
