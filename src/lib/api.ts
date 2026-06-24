@@ -1,7 +1,3 @@
-// DIPLAI API layer
-// 현재는 mock data를 반환합니다. 나중에 fetch 호출로 교체하면 됩니다.
-// 예: const res = await fetch(`${API_BASE}/scenarios`); return res.json();
-
 // 백엔드 연결
 const API_BASE = "https://diplai.onrender.com";
 
@@ -18,6 +14,9 @@ export async function fetchScenario(id: string) {
   return res.json();
 }
 */
+
+import type { Scenario } from "@/types";
+
 export async function fetchScenario(id: string) {
   console.log("API CALL START", id);
 
@@ -63,8 +62,6 @@ export async function sendNegotiationMessage(
   return res.json();
 }
 
-//
-import type { Scenario } from "@/types";
 
 //시나리오 목록
 export async function fetchScenario(id: string): Promise<Scenario | undefined> {
