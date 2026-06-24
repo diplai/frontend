@@ -1,4 +1,4 @@
-
+//시나리오 상세 페이지
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, ClipboardList, Users, Clock, Scale, AlertTriangle } from "lucide-react";
