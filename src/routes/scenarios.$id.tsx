@@ -40,6 +40,8 @@ function BriefingPage() {
     );
   }
 
+  console.log("scenario:", scenario); // 👈 여기
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <StepProgress current={2} />
