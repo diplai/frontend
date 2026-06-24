@@ -28,7 +28,7 @@ export async function sendNegotiationMessage(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      s_id: scenarioId,
+      id: scenarioId,
       message,
       round,
     }),
@@ -42,10 +42,6 @@ export async function sendNegotiationMessage(
 }
 
 
-
-
-
-  
 /*
 import { scenarios } from "@/data/scenarios";
 import type { Scenario } from "@/types";
@@ -61,7 +57,6 @@ export async function fetchScenario(id: string): Promise<Scenario | undefined> {
   await delay();
   return scenarios.find((s) => s.id === id);
 }
-
 
 // 협상 메시지 전송 (mock)
 export async function sendNegotiationMessage(
