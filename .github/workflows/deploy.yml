@@ -23,11 +23,28 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - run: npm install
 
       - run: npm run build
+
+      - name: Debug build output
+        run: |
+          echo "=== ROOT ==="
+          ls -al
+
+          echo "=== DIST ==="
+          ls -al dist || true
+
+          echo "=== .OUTPUT ==="
+          ls -al .output || true
+
+          echo "=== BUILD ==="
+          ls -al build || true
+
+          echo "=== FIND ==="
+          find . -maxdepth 3 -type d
 
       - uses: actions/upload-pages-artifact@v3
         with:
