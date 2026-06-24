@@ -6,16 +6,17 @@
 const API_BASE = "https://diplai.onrender.com";
 
 // 시나리오 목록
-export async function fetchScenarios() {
-  const res = await fetch(`${API_BASE}/scenarios`);
+export async function fetchScenario(id: string) {
+  const res = await fetch(`${API_BASE}/scenarios/${id}`);
 
   if (!res.ok) {
-    throw new Error("Failed to fetch scenarios");
+    throw new Error("Failed to fetch scenario");
   }
 
   return res.json();
 }
 
+/*
 // 채팅
 export async function sendNegotiationMessage(
   scenarioId: string,
@@ -41,8 +42,7 @@ export async function sendNegotiationMessage(
   return res.json();
 }
 
-
-/*
+//
 import { scenarios } from "@/data/scenarios";
 import type { Scenario } from "@/types";
 
@@ -53,6 +53,7 @@ export async function fetchScenarios(): Promise<Scenario[]> {
   return scenarios;
 }
 
+//시나리오 목록
 export async function fetchScenario(id: string): Promise<Scenario | undefined> {
   await delay();
   return scenarios.find((s) => s.id === id);
