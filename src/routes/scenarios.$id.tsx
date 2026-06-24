@@ -1,3 +1,4 @@
+
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, ClipboardList, Users, Clock, Scale, AlertTriangle } from "lucide-react";
