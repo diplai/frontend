@@ -28,6 +28,15 @@ export async function fetchScenario(id: string) {
   return res.json();
 }
 
+import { scenarios } from "@/data/scenarios";
+
+const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
+
+export async function fetchScenarios(): Promise<Scenario[]> {
+  await delay();
+  return scenarios;
+}
+
 /*
 // 채팅
 export async function sendNegotiationMessage(
@@ -55,15 +64,7 @@ export async function sendNegotiationMessage(
 }
 
 //
-import { scenarios } from "@/data/scenarios";
 import type { Scenario } from "@/types";
-
-const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
-
-export async function fetchScenarios(): Promise<Scenario[]> {
-  await delay();
-  return scenarios;
-}
 
 //시나리오 목록
 export async function fetchScenario(id: string): Promise<Scenario | undefined> {
