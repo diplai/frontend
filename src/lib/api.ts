@@ -69,7 +69,6 @@ export async function fetchScenario(id: string): Promise<Scenario | undefined> {
   await delay();
   return scenarios.find((s) => s.id === id);
 }
-*/
 
 // 협상 메시지 전송 (mock)
 export async function sendNegotiationMessage(
@@ -84,6 +83,7 @@ export async function sendNegotiationMessage(
     "추가 협의가 필요합니다.";
   return { reply, round: round + 1 };
 }
+*/
 
 export async function fetchReport(id: string) {
   await delay();
