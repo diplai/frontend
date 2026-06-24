@@ -5,7 +5,7 @@
 // 백엔드 연결
 const API_BASE = "https://diplai.onrender.com";
 
-// 시나리오 목록
+/* 시나리오 목록
 export async function fetchScenario(id: string) {
   const res = await fetch(`${API_BASE}/scenarios/${id}`);
 
@@ -17,7 +17,16 @@ export async function fetchScenario(id: string) {
 
   return res.json();
 }
+*/
+export async function fetchScenario(id: string) {
+  console.log("API CALL START", id);
 
+  const res = await fetch(`${API_BASE}/scenarios/${id}`);
+
+  console.log("status:", res.status);
+
+  return res.json();
+}
 
 /*
 // 채팅
