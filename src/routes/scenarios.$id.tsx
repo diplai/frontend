@@ -1,5 +1,6 @@
 console.log("BriefingPage mounted");
 console.log("fetchScenario id:", id);
+console.log("id:", id);
 
 //시나리오 상세 페이지
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
@@ -32,15 +33,18 @@ function BriefingPage() {
 
 function BriefingPage() {
   const { id } = useParams({ from: "/scenarios/$id" });
+  /*
   const { data: scenario, isLoading } = useQuery({
     queryKey: ["scenario", id],
-    //queryFn: () => fetchScenario(id),
-    queryFn: async () => {
-      const res = await fetchScenario(id);
-      console.log("RAW RESPONSE:", res);
-      return res;
-    },
+    queryFn: () => fetchScenario(id),
   });
+  */
+  const { data: scenario, isLoading } = useQuery({
+    queryKey: ["scenario", id],
+    queryFn: () => fetchScenario(id),
+    enabled: !!id,
+  });
+
 
   if (isLoading) {
     return <div className="mx-auto max-w-7xl p-10 text-sm text-muted-foreground">불러오는 중…</div>;
