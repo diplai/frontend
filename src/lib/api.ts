@@ -5,10 +5,10 @@
 const API_BASE = "https://diplai.onrender.com";
 
 // mock data
-import { scenarios } from "@/data/scenarios";
+// import { scenarios } from "@/data/scenarios";
 import type { Scenario } from "@/types";
 
-const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
+// const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
 
 /* 시나리오 조회
 export async function fetchScenarios(): Promise<Scenario[]> {
@@ -37,7 +37,7 @@ export async function fetchScenario(id: string): Promise<Scenario> {
   return res.json();
 }
 
-// 협상 메시지 전송 (mock) -> 백 api로 교체 예정
+/* 협상 메시지 전송 (mock) -> 백 api로 교체 예정
 export async function sendNegotiationMessage(
   scenarioId: string,
   round: number,
@@ -49,6 +49,29 @@ export async function sendNegotiationMessage(
     scenario?.aiResponses[Math.min(round, (scenario?.aiResponses.length ?? 1) - 1)] ??
     "추가 협의가 필요합니다.";
   return { reply, round: round + 1 };
+}*/
+
+export async function sendNegotiationMessage(
+  scenarioId: string,
+  round: number,
+  message: string,
+): Promise<{ reply: string }> {
+  const res = await fetch(`${API_BASE}/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: scenarioId,
+      message,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to send message");
+  }
+
+  return res.json();
 }
 
 /*리포트 조회
