@@ -118,6 +118,22 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch("https://diplai.onrender.com/ping");
+
+        if (res.ok) {
+          console.log("서버 ping 성공");
+        }
+      } catch (err) {
+        console.warn("서버 ping 실패:", err);
+      }
+    }, 5 * 60 * 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Layout>
