@@ -1,6 +1,7 @@
 // DIPLAI API layer
 
-const API_BASE = "https://diplai.onrender.com";
+//const API_BASE = "https://diplai.onrender.com";
+const API_BASE = "http://127.0.0.1:8000";
 
 // mock data
 // import { scenarios } from "@/data/scenarios"; 지워 주석 처리 다 지울 것
