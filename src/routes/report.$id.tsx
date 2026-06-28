@@ -2,7 +2,7 @@ import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Download, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
-import { fetchScenario } from "@/lib/api";
+import { fetchScenario, fetchReport } from "@/lib/api";
 import { StepProgress } from "@/components/StepProgress";
 import { ReportCard } from "@/components/ReportCard";
 import { ScoreCard } from "@/components/ScoreCard";
@@ -17,11 +17,15 @@ export const Route = createFileRoute("/report/$id")({
 function ReportPage() {
   const { id } = useParams({ from: "/report/$id" });
   const { data: scenario } = useQuery({ queryKey: ["scenario", id], queryFn: () => fetchScenario(id) });
+  const { data: report } = useQuery({
+  queryKey: ["report", id],
+  queryFn: () => fetchReport(id),
+});
 
-  if (!scenario) {
+  if (!scenario || !report) {
     return <div className="mx-auto max-w-7xl p-10 text-sm text-muted-foreground">불러오는 중…</div>;
   }
-  const r = scenario.report;
+  const r = report;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">

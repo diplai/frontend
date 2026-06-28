@@ -1,11 +1,9 @@
 // DIPLAI API layer
-// 현재는 mock data를 반환합니다. 나중에 fetch 호출로 교체하면 됩니다.
-// 예: const res = await fetch(`${API_BASE}/scenarios`); return res.json();
 
 const API_BASE = "https://diplai.onrender.com";
 
 // mock data
-// import { scenarios } from "@/data/scenarios";
+// import { scenarios } from "@/data/scenarios"; 지워 주석 처리 다 지울 것
 import type { Scenario } from "@/types";
 
 // const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
@@ -74,6 +72,7 @@ export async function sendNegotiationMessage(
   return res.json();
 }
 
+
 /*리포트 조회
 export async function fetchReport(id: string) {
   await delay();
@@ -86,58 +85,3 @@ export async function fetchReport(id: string): Promise<Scenario["report"]> {
 
   return res.json();
 }
-
-
-/*
-const API_BASE = "https://diplai.onrender.com";
-
-import type { Scenario } from "@/types";
-
-// 공통 fetch wrapper
-async function request<T>(url: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE}${url}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options?.headers || {}),
-    },
-    ...options,
-  });
-
-  if (!res.ok) {
-    const errorText = await res.text().catch(() => "");
-    throw new Error(errorText || `API Error: ${res.status}`);
-  }
-
-  return res.json();
-}
-
-// 전체 시나리오 조회 - 리스트 화면?
-export function fetchScenarios(): Promise<Scenario[]> {
-  return request<Scenario[]>("/scenarios");
-}
-
-
-// 시나리오 상세
-export function fetchScenario(id: string): Promise<Scenario> {
-  return request<Scenario>(`/scenarios/${id}`);
-}
-
-// 협상 메시지 전송 (AI 응답)
-export function sendNegotiationMessage(
-  scenarioId: string,
-  message: string,
-): Promise<{ reply: string }> {
-  return request<{ reply: string }>("/chat", {
-    method: "POST",
-    body: JSON.stringify({
-      scenarioId,
-      message,
-    }),
-  });
-}
-
-//리포트 조회
-export function fetchReport(id: string): Promise<any> {
-  return request(`/report/${id}`);
-}
-*/

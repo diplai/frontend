@@ -37,7 +37,12 @@ function SimulationPage() {
 
   const handleSend = async () => {
     if (!input.trim() || done || busy) return;
-    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: input.trim() };
+    //const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: input.trim() };
+    const userMsg: ChatMessage = {
+      id: `${Date.now()}-user`,
+      role: "user",
+      content: input.trim(),
+    };
     const currentRound = round;
     setMessages((m) => [...m, userMsg]);
     setInput("");
@@ -45,7 +50,15 @@ function SimulationPage() {
     setBusy(true);
     try {
       const { reply } = await sendNegotiationMessage(scenario.id, currentRound, userMsg.content);
-      setMessages((m) => [...m, { id: crypto.randomUUID(), role: "ai", content: reply }]);
+      //setMessages((m) => [...m, { id: crypto.randomUUID(), role: "ai", content: reply }]);
+      setMessages((m) => [
+        ...m,
+        {
+          id: `${Date.now()}-ai`,
+          role: "ai",
+          content: reply,
+        },
+      ]);
     } finally {
       setBusy(false);
     }
@@ -56,7 +69,12 @@ function SimulationPage() {
   const handleStrategy = (name: string) => {
     setMessages((m) => [
       ...m,
-      { id: crypto.randomUUID(), role: "system", content: `전략 선택: ${name}` },
+      //{ id: crypto.randomUUID(), role: "system", content: `전략 선택: ${name}` },
+      {
+        id: `${Date.now()}-system`,
+        role: "system",
+        content: `전략 선택: ${name}`,
+      }
     ]);
     setStrategyOpen(false);
   };

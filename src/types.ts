@@ -26,7 +26,6 @@ export interface Scenario {
     risk: string;
     negotiable: string;
   };
-  aiResponses: string[];
   suggestedSentences: string[];
   drafts: { protest: string; consultation: string; jointStatement: string };
   report: {
