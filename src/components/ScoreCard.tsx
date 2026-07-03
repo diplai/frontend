@@ -1,10 +1,16 @@
+/* eslint-disable prettier/prettier */
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
 export function ScoreCard({
   scores,
 }: {
-  scores: { evidence: number; expression: number; strategy: number; perspective: number };
+  scores: {
+    evidence: number;
+    expression: number;
+    strategy: number;
+    perspective: number;
+  };
 }) {
   const items = [
     { label: "근거 활용도", value: scores.evidence },
@@ -20,7 +26,9 @@ export function ScoreCard({
         <div className="flex items-end justify-between">
           <div>
             <div className="text-xs text-muted-foreground">종합 점수</div>
-            <div className="font-display text-4xl font-bold text-navy">{avg}</div>
+            <div className="font-display text-4xl font-bold text-navy">
+              {avg}
+            </div>
           </div>
           <div className="text-xs text-muted-foreground">/ 100</div>
         </div>

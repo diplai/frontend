@@ -66,7 +66,7 @@ export function ChatPanel({
                       : "bg-secondary text-secondary-foreground",
                   )}
                 >
-                  {m.content}
+                  {m.content || "답변 생성 중..."}
                 </div>
               </div>
               {isUser && (

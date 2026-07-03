@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Link } from "@tanstack/react-router";
 
 export function Header() {
@@ -17,7 +18,9 @@ export function Header() {
           </span>
           <div className="leading-tight">
             <div className="text-base font-bold tracking-wide">DIPLAI</div>
-            <div className="text-[10px] text-white/60">외교 협상 시뮬레이터</div>
+            <div className="text-[10px] text-white/60">
+              외교 협상 시뮬레이터
+            </div>
           </div>
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
@@ -33,7 +36,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="text-xs text-white/60">공공데이터 기반</div>
+        <div className="w-px md:w-0" aria-hidden />
       </div>
     </header>
   );

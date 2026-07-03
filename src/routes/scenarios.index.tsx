@@ -24,7 +24,9 @@ function ScenariosPage() {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <StepProgress current={1} />
       <div className="mt-8 mb-8">
-        <h1 className="text-3xl font-bold text-navy">외교 협상 시나리오 선택</h1>
+        <h1 className="text-3xl font-bold text-navy">
+          외교 협상 시나리오 선택
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           분야 구분 없이 선별된 6개의 외교 협상 시나리오 중 하나를 선택하세요.
         </p>

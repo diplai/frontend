@@ -28,10 +28,13 @@ function BriefingPage() {
   if (isLoading) {
     return <div className="mx-auto max-w-7xl p-10 text-sm text-muted-foreground">불러오는 중…</div>;
   }
+
   if (!scenario) {
     return (
       <div className="mx-auto max-w-7xl p-10">
-        <p className="text-sm text-muted-foreground">시나리오를 찾을 수 없습니다.</p>
+        <p className="text-sm text-muted-foreground">
+          시나리오를 찾을 수 없습니다.
+        </p>
         <Button asChild className="mt-4">
           <Link to="/scenarios">시나리오 목록으로</Link>
         </Button>
@@ -45,16 +48,17 @@ function BriefingPage() {
 
       <div className="mt-8 space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge className="bg-navy text-navy-foreground">{scenario.field}</Badge>
+          <Badge className="bg-navy text-navy-foreground">
+            {scenario.field}
+          </Badge>
           <Badge variant="outline">관련국 · {scenario.country}</Badge>
-          <Badge variant="secondary">난이도 · {scenario.difficulty}</Badge>
         </div>
         <h1 className="text-3xl font-bold text-navy">{scenario.title}</h1>
         <p className="text-sm text-muted-foreground">{scenario.summary}</p>
       </div>
 
       <div className="mt-8 grid gap-5 lg:grid-cols-2">
-        <BriefingCard title="사건 개요" icon={<ClipboardList className="h-4 w-4" />}>
+        <BriefingCard title="사건 개요">
           <div>
             <div className="text-xs font-semibold text-brand">분쟁 배경</div>
             <p>{scenario.briefing.background}</p>
@@ -73,7 +77,7 @@ function BriefingPage() {
 
         <Timeline items={scenario.timeline} />
 
-        <BriefingCard title="관련 조약·협정" icon={<Scale className="h-4 w-4" />}>
+        <BriefingCard title="관련 조약·협정">
           <div className="space-y-3">
             {scenario.treaties.map((t) => (
               <TreatyCard key={t.name} {...t} />
@@ -88,7 +92,9 @@ function BriefingPage() {
 
       <div className="mt-10 flex flex-col items-center gap-3 rounded-lg border border-border bg-surface p-6 text-center">
         <AlertTriangle className="h-5 w-5 text-brand" />
-        <h2 className="text-lg font-bold text-navy">브리핑을 모두 확인하셨나요?</h2>
+        <h2 className="text-lg font-bold text-navy">
+          브리핑을 모두 확인하셨나요?
+        </h2>
         <p className="text-sm text-muted-foreground">
           이제 AI 상대국 대표와 총 10라운드의 외교 협상을 진행합니다.
         </p>
@@ -98,7 +104,8 @@ function BriefingPage() {
           </Link>
         </Button>
         <div className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Users className="h-3 w-3" /> <Clock className="h-3 w-3" /> 예상 소요 5–10분
+          <Users className="h-3 w-3" /> <Clock className="h-3 w-3" /> 예상 소요
+          5–10분
         </div>
       </div>
     </div>

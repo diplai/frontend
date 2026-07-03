@@ -1,7 +1,15 @@
+/* eslint-disable prettier/prettier */
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Database, MessagesSquare, FileText, ExternalLink } from "lucide-react";
+import {
+  ArrowRight,
+  Database,
+  MessagesSquare,
+  FileText,
+  ExternalLink,
+} from "lucide-react";
 import { fetchScenarios } from "@/lib/api";
+import { publicDataLinks } from "@/data/pulicDataLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScenarioCard } from "@/components/ScenarioCard";
@@ -38,11 +46,7 @@ const values = [
   },
 ];
 
-const dataLinks = [
-  { name: "외교부 양자조약 데이터", desc: "국가별 조약 체결·발효 현황" },
-  { name: "국가·지역별 주요협정 정보", desc: "주요 협력 및 합의 사례" },
-  { name: "MOFA OPEN DATA", desc: "외교 통계·국제 협정 정보" },
-];
+const dataLinks = publicDataLinks;
 
 function Home() {
   const { data: scenarios = [] } = useQuery({
@@ -61,33 +65,58 @@ function Home() {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
               외교부 공공데이터 기반 시뮬레이터
             </div>
-            <h1 className="font-display text-5xl font-bold leading-tight sm:text-6xl">DIPLAI</h1>
+            <h1 className="font-display text-5xl font-bold leading-tight sm:text-6xl">
+              DIPLAI
+            </h1>
             <p className="text-xl font-medium text-white/90 sm:text-2xl">
               조약과 외교 데이터를 기반으로 외교 협상을 체험하는 AI 시뮬레이터
             </p>
             <p className="max-w-2xl text-base leading-relaxed text-white/70">
-              외교부 공공데이터를 바탕으로 구성된 협상 시나리오를 선택하고, AI 상대국 대표와 외교 협상을 진행해보세요.
-              브리핑부터 결과 리포트까지 한 흐름으로 체험할 수 있습니다.
+              AI로 구현된 상대국 대표와 전략적인 외교 협상을 진행해보세요.
             </p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button asChild size="lg" className="bg-white text-navy hover:bg-white/90">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-navy hover:bg-white/90"
+              >
                 <Link to="/scenarios">
                   시나리오 시작하기 <ArrowRight className="h-4 w-4" />
                 </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white">
-                <Link to="/scenarios">시나리오 둘러보기</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Scenarios preview */}
+      <section id="scenarios" className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div className="mb-8">
+          <div className="text-xs font-semibold tracking-[0.2em] text-brand">
+            SCENARIOS
+          </div>
+          <h2 className="mt-2 text-3xl font-bold text-navy">추천 시나리오</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            아래 시나리오 카드를 선택하면 사건 브리핑부터 협상까지 바로 시작할
+            수 있습니다.
+          </p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {scenarios.slice(0, 6).map((s) => (
+            <ScenarioCard key={s.id} scenario={s} />
+          ))}
+        </div>
+      </section>
+
       {/* Values */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <div className="mb-10 text-center">
-          <div className="text-xs font-semibold tracking-[0.2em] text-brand">SERVICE VALUE</div>
-          <h2 className="mt-2 text-3xl font-bold text-navy">서비스 핵심 가치</h2>
+          <div className="text-xs font-semibold tracking-[0.2em] text-brand">
+            SERVICE VALUE
+          </div>
+          <h2 className="mt-2 text-3xl font-bold text-navy">
+            서비스 핵심 가치
+          </h2>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {values.map((v) => (
@@ -97,7 +126,9 @@ function Home() {
                   <v.icon className="h-5 w-5" />
                 </div>
                 <h3 className="text-lg font-semibold text-navy">{v.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{v.desc}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {v.desc}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -109,46 +140,41 @@ function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <div className="text-xs font-semibold tracking-[0.2em] text-brand">DATA SOURCE</div>
-              <h2 className="mt-2 text-3xl font-bold text-navy">외교부 공공데이터</h2>
+              <div className="text-xs font-semibold tracking-[0.2em] text-brand">
+                DATA SOURCE
+              </div>
+              <h2 className="mt-2 text-3xl font-bold text-navy">
+                외교부 공공데이터
+              </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                본 시뮬레이터는 외교부 공공데이터를 활용하여 협상 시나리오를 구성합니다.
+                본 시뮬레이터는 외교부 공공데이터를 활용하여 협상 시나리오를
+                구성합니다.
               </p>
             </div>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             {dataLinks.map((d) => (
-              <Card key={d.name} className="border-border">
-                <CardContent className="flex items-center justify-between gap-4 py-5">
-                  <div>
-                    <div className="font-semibold text-navy">{d.name}</div>
-                    <div className="text-xs text-muted-foreground">{d.desc}</div>
-                  </div>
-                  <ExternalLink className="h-4 w-4 text-brand" />
-                </CardContent>
-              </Card>
+              <a
+                key={d.name}
+                href={d.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+              >
+                <Card className="border-border transition-all group-hover:-translate-y-0.5 group-hover:border-brand/40 group-hover:shadow-md">
+                  <CardContent className="flex items-center justify-between gap-4 py-5">
+                    <div>
+                      <div className="font-semibold text-navy">{d.name}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {d.desc}
+                      </div>
+                    </div>
+                    <ExternalLink className="h-4 w-4 text-brand" />
+                  </CardContent>
+                </Card>
+              </a>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Scenarios preview */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="mb-8 flex items-end justify-between">
-          <div>
-            <div className="text-xs font-semibold tracking-[0.2em] text-brand">SCENARIOS</div>
-            <h2 className="mt-2 text-3xl font-bold text-navy">추천 시나리오</h2>
-          </div>
-          <Button asChild variant="ghost" className="text-navy">
-            <Link to="/scenarios">
-              전체 보기 <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {scenarios.slice(0, 6).map((s) => (
-            <ScenarioCard key={s.id} scenario={s} />
-          ))}
         </div>
       </section>
     </div>
