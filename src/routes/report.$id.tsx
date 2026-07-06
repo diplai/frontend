@@ -1,11 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useRef, useState } from "react";
 import { Download, Loader2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { fetchScenario, fetchReport } from "@/lib/api";
 import { StepProgress } from "@/components/StepProgress";
 import { ReportCard } from "@/components/ReportCard";
@@ -91,9 +88,6 @@ function ReportLoading() {
 function ReportPage() {
   const { id } = useParams({ from: "/report/$id" });
 
-  const reportRef = useRef<HTMLDivElement>(null);
-  const [isPdfDownloading, setIsPdfDownloading] = useState(false);
-
   const {
     data: scenario,
     isLoading: isScenarioLoading,
@@ -139,59 +133,96 @@ function ReportPage() {
     r.overall_feedback ||
     "협상 대화 내용을 바탕으로 결과 리포트가 생성되었습니다.";
 
-  const handleDownloadPdf = async () => {
-    if (!reportRef.current || !scenario) return;
+  const handleDownloadPdf = () => {
+    toast.info("인쇄 창에서 대상을 'PDF로 저장'으로 선택해주세요.");
 
-    try {
-      setIsPdfDownloading(true);
-
-      const canvas = await html2canvas(reportRef.current, {
-        scale: 2,
-        backgroundColor: "#f8fafc",
-        useCORS: true,
-        ignoreElements: (element) =>
-          element.classList.contains("pdf-ignore"),
-      });
-
-      const imgData = canvas.toDataURL("image/png");
-
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-
-      const imgWidth = pdfWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pdfHeight;
-
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pdfHeight;
-      }
-
-      const safeTitle = scenario.title.replace(/[\\/:*?"<>|]/g, "_");
-      pdf.save(`DIPLAI_${safeTitle}_협상결과리포트.pdf`);
-
-      toast.success("PDF 다운로드가 완료되었습니다.");
-    } catch (error) {
-      console.error(error);
-      toast.error("PDF 다운로드 중 오류가 발생했습니다.");
-    } finally {
-      setIsPdfDownloading(false);
-    }
+    setTimeout(() => {
+      window.print();
+    }, 100);
   };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-      <StepProgress current={4} />
+      <style>
+        {`
+          @media print {
+            @page {
+              size: A4;
+              margin: 14mm;
+            }
 
-      <div ref={reportRef} className="rounded-xl bg-background p-4">
+            html,
+            body {
+              background: #ffffff !important;
+            }
+
+            body * {
+              visibility: hidden;
+            }
+
+            [data-pdf-root="true"],
+            [data-pdf-root="true"] * {
+              visibility: visible;
+            }
+
+            [data-pdf-root="true"] {
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 100% !important;
+              background: #ffffff !important;
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+
+            .pdf-ignore {
+              display: none !important;
+            }
+
+            [data-pdf-root="true"] * {
+              box-shadow: none !important;
+              text-shadow: none !important;
+            }
+
+            [data-pdf-root="true"] .grid {
+              display: block !important;
+            }
+
+            [data-pdf-root="true"] .space-y-5 > * + * {
+              margin-top: 16px !important;
+            }
+
+            [data-pdf-root="true"] h1,
+            [data-pdf-root="true"] h2,
+            [data-pdf-root="true"] h3 {
+              color: #0f172a !important;
+              break-after: avoid;
+            }
+
+            [data-pdf-root="true"] p,
+            [data-pdf-root="true"] li {
+              color: #334155 !important;
+              line-height: 1.6 !important;
+            }
+
+            [data-pdf-root="true"] ul {
+              padding-left: 18px !important;
+            }
+
+            [data-pdf-root="true"] [class*="rounded"],
+            [data-pdf-root="true"] [class*="border"] {
+              break-inside: avoid;
+              page-break-inside: avoid;
+            }
+          }
+        `}
+      </style>
+
+      <div className="pdf-ignore">
+        <StepProgress current={4} />
+      </div>
+
+      <div data-pdf-root="true" className="rounded-xl bg-background p-4">
         <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <Badge className="mb-2 bg-navy text-navy-foreground">
@@ -204,13 +235,9 @@ function ReportPage() {
           </div>
 
           <div className="pdf-ignore flex gap-2">
-            <Button
-              variant="outline"
-              onClick={handleDownloadPdf}
-              disabled={isPdfDownloading}
-            >
+            <Button variant="outline" onClick={handleDownloadPdf}>
               <Download className="h-4 w-4" />
-              {isPdfDownloading ? "PDF 생성 중..." : "PDF 다운로드"}
+              PDF 다운로드
             </Button>
 
             <Button asChild className="bg-navy hover:bg-navy/90">
