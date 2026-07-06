@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 // DIPLAI API layer
 
-//const API_BASE = "https://diplai.onrender.com";
-const API_BASE = "http://127.0.0.1:8000"; //-> 로컬 사용 시 사용할 코드
+const API_BASE = "https://diplai.onrender.com";
+//const API_BASE = "http://127.0.0.1:8000"; //-> 로컬 사용 시 사용할 코드
 
 // mock data
 import type { Scenario } from "@/types";
