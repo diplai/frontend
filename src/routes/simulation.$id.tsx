@@ -5,7 +5,7 @@ import {
   useNavigate,
   useParams,
 } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Loader2, Target } from "lucide-react";
 import {
@@ -31,6 +31,7 @@ export const Route = createFileRoute("/simulation/$id")({
 function SimulationPage() {
   const { id } = useParams({ from: "/simulation/$id" });
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: scenario } = useQuery({
     queryKey: ["scenario", id],
@@ -163,6 +164,10 @@ function SimulationPage() {
 
     if (!confirmed) return;
 
+    queryClient.removeQueries({
+      queryKey: ["report", scenario.id],
+    });
+
     void navigate({
       to: "/report/$id",
       params: { id: scenario.id },
@@ -256,13 +261,18 @@ function SimulationPage() {
             size="lg"
             className="mt-4 bg-navy hover:bg-navy/90"
           >
-            <Link
-              to="/report/$id"
-              params={{ id: scenario.id }}
-            >
-              리포트 보기
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+        <Link
+          to="/report/$id"
+          params={{ id: scenario.id }}
+          onClick={() => {
+            queryClient.removeQueries({
+              queryKey: ["report", scenario.id],
+            });
+          }}
+        >
+          리포트 보기
+          <ArrowRight className="h-4 w-4" />
+        </Link>
           </Button>
         ) : (
           <Button

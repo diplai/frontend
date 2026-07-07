@@ -105,6 +105,11 @@ function ReportPage() {
   } = useQuery({
     queryKey: ["report", id],
     queryFn: () => fetchReport(id),
+    staleTime: Infinity,
+    gcTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
   });
 
   if (isScenarioLoading || isReportLoading || !scenario || !report) {
