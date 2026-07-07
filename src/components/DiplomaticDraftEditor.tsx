@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { useState } from "react";
-import { Copy } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+
+import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
@@ -22,9 +24,9 @@ export function DiplomaticDraftEditor({
   return (
     <div className="rounded-lg border border-border bg-card">
       <div className="border-b border-border px-4 py-3">
-        <h3 className="text-sm font-semibold text-navy">외교문 작성</h3>
+        <h3 className="text-sm font-semibold text-navy">외교문</h3>
         <p className="text-xs text-muted-foreground">
-          mock 초안을 바탕으로 직접 수정해 보세요.
+          초안을 바탕으로 직접 작성해 보세요.
         </p>
       </div>
       <Tabs defaultValue="protest" className="p-4">

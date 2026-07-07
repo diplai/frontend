@@ -9,6 +9,7 @@ import { ReportCard } from "@/components/ReportCard";
 import { ScoreCard } from "@/components/ScoreCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DiplomaticDraftEditor } from "@/components/DiplomaticDraftEditor";
 
 export const Route = createFileRoute("/report/$id")({
   head: () => ({ meta: [{ title: "협상 결과 리포트 · DIPLAI" }] }),
@@ -145,6 +146,7 @@ function ReportPage() {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <style>
         {`
+
           @media print {
             @page {
               size: A4;
@@ -175,7 +177,16 @@ function ReportPage() {
               margin: 0 !important;
             }
 
-            .pdf-ignore {
+            .pdf-ignore{
+              display: none !important;
+            }
+
+            .print-draft-section {
+              break-inside: avoid;
+              page-break-inside: avoid;
+            }
+
+            .print-draft-section button {
               display: none !important;
             }
 
@@ -295,6 +306,10 @@ function ReportPage() {
                 <p>{r.actualResult}</p>
               </ReportCard>
             )}
+
+            <div className="print-draft-section">
+              <DiplomaticDraftEditor drafts={scenario.drafts} />
+            </div>
 
             {(missed.length > 0 ||
               insufficient.length > 0 ||

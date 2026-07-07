@@ -17,7 +17,6 @@ import { StepProgress } from "@/components/StepProgress";
 import { ChatPanel, type ChatMessage } from "@/components/ChatPanel";
 import { EvidencePanel } from "@/components/EvidencePanel";
 import { StrategyModal } from "@/components/StrategyModal";
-import { DiplomaticDraftEditor } from "@/components/DiplomaticDraftEditor";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -238,10 +237,6 @@ function SimulationPage() {
           scenario={scenario}
           onInsert={handleInsert}
         />
-      </div>
-
-      <div className="mt-6">
-        <DiplomaticDraftEditor drafts={scenario.drafts} />
       </div>
 
       <div className="mt-8 rounded-lg border border-brand/30 bg-brand/5 p-6 text-center">
