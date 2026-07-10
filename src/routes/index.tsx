@@ -49,7 +49,7 @@ const values = [
 const dataLinks = publicDataLinks;
 
 function Home() {
-  const { data: scenarios = [] } = useQuery({
+  const { data: scenarios = [], isLoading } = useQuery({
     queryKey: ["scenarios"],
     queryFn: fetchScenarios,
   });
@@ -102,9 +102,18 @@ function Home() {
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {scenarios.slice(0, 6).map((s) => (
-            <ScenarioCard key={s.id} scenario={s} />
-          ))}
+          {isLoading ? (
+            <div className="col-span-full flex flex-col items-center justify-center py-16">
+              <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-brand border-t-transparent" />
+              <p className="text-sm text-muted-foreground">
+                외교 협상 시나리오를 준비하는 중입니다...
+              </p>
+            </div>
+          ) : (
+            scenarios.slice(0, 6).map((s) => (
+              <ScenarioCard key={s.id} scenario={s} />
+            ))
+          )}
         </div>
       </section>
 
