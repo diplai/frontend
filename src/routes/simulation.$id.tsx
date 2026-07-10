@@ -5,7 +5,7 @@ import {
   useNavigate,
   useParams,
 } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Loader2, Target } from "lucide-react";
 import {
@@ -17,7 +17,6 @@ import { StepProgress } from "@/components/StepProgress";
 import { ChatPanel, type ChatMessage } from "@/components/ChatPanel";
 import { EvidencePanel } from "@/components/EvidencePanel";
 import { StrategyModal } from "@/components/StrategyModal";
-import { DiplomaticDraftEditor } from "@/components/DiplomaticDraftEditor";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -32,6 +31,7 @@ export const Route = createFileRoute("/simulation/$id")({
 function SimulationPage() {
   const { id } = useParams({ from: "/simulation/$id" });
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: scenario } = useQuery({
     queryKey: ["scenario", id],
@@ -164,6 +164,10 @@ function SimulationPage() {
 
     if (!confirmed) return;
 
+    queryClient.removeQueries({
+      queryKey: ["report", scenario.id],
+    });
+
     void navigate({
       to: "/report/$id",
       params: { id: scenario.id },
@@ -240,10 +244,6 @@ function SimulationPage() {
         />
       </div>
 
-      <div className="mt-6">
-        <DiplomaticDraftEditor drafts={scenario.drafts} />
-      </div>
-
       <div className="mt-8 rounded-lg border border-brand/30 bg-brand/5 p-6 text-center">
         <h2 className="text-lg font-bold text-navy">
           {done ? "협상이 종료되었습니다" : "대화를 조기 종료할 수 있습니다"}
@@ -261,13 +261,18 @@ function SimulationPage() {
             size="lg"
             className="mt-4 bg-navy hover:bg-navy/90"
           >
-            <Link
-              to="/report/$id"
-              params={{ id: scenario.id }}
-            >
-              리포트 보기
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+        <Link
+          to="/report/$id"
+          params={{ id: scenario.id }}
+          onClick={() => {
+            queryClient.removeQueries({
+              queryKey: ["report", scenario.id],
+            });
+          }}
+        >
+          리포트 보기
+          <ArrowRight className="h-4 w-4" />
+        </Link>
           </Button>
         ) : (
           <Button
